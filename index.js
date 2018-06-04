@@ -2,7 +2,7 @@
 
 // Imports dependencies and set up http server
 const
-  PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN,
+  PAGE_ACCESS_TOKEN = "EAAYyQSvKHyoBAIXeE6s3hDAVsJPjqWm47WzhdNzKkCV3k2PpO7VGl2o9gKj0wBFRsXscxnU1PQpbZC8hqAGAgJZCWD2BLJ5UkZBmTZAFwlr6kPZAo7qwrY7sunEL2psuFM87GogQrH36wlHPvocZANdlDagbv17xjyPIvV1ZAX1Al7tPBF5Yysw",
   express = require('express'),
   bodyParser = require('body-parser'),
   app = express().use(bodyParser.json()); // creates express http server
@@ -40,7 +40,7 @@ app.post('/webhook', (req, res) => {
 app.get('/webhook', (req, res) => {
 
   // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "EAAYyQSvKHyoBADA3IZBFZA2ZBvhMAxecYkZB93UbBUjG2dmrpW4sZC7cKOobZCqCxSYeaJB99Mz2sY5irKIgMcaTM2LoNXK2lgrZBJ1UcOuVDyOndwKm7ZA2V3XHaLZB07RMnqE4GKj0JLvHfr8AJEE4w6Df6eUJlnOfEPkqBAwncZBLrKcpBTCkII"
+  let VERIFY_TOKEN = "skyvu_ar"
     
   // Parse the query params
   let mode = req.query['hub.mode'];
