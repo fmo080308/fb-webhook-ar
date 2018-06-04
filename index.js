@@ -5,9 +5,9 @@ const
   express = require('express'),
   bodyParser = require('body-parser'),
   request = require('request'),
-  WebSocket = require('ws'),
-  wss = new WebSocket.Server({ port: 1338 }),
-  app = express();
+  expressWs = require('..'),
+  expressWs = expressWs(express()),
+  app = expressWs.app;
   
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -71,10 +71,9 @@ app.get('/webhook', (req, res) => {
 }
 );
 
-wss.on('connection', function connection(ws) {
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
+app.ws('/server', function(ws, req) {
+  ws.on('message', function(msg) {
+    console.log(msg);
   });
-
-  ws.send('something');
+  console.log('socket', req.testing);
 });
