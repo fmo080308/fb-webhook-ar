@@ -4,10 +4,10 @@
 const
   express = require('express'),
   bodyParser = require('body-parser'),
-  request = require('request'),
-  expressWs = require('..'),
-  expressWs = expressWs(express()),
-  app = expressWs.app;
+  request = require('request');
+var  expressWs = require('express-ws');
+var  expressWs = expressWs(express());
+var  app = expressWs.app;
   
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
