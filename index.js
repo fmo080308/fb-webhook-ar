@@ -2,10 +2,13 @@
 
 // Imports dependencies and set up http server
 const
-  PAGE_ACCESS_TOKEN = "EAAYyQSvKHyoBAIXeE6s3hDAVsJPjqWm47WzhdNzKkCV3k2PpO7VGl2o9gKj0wBFRsXscxnU1PQpbZC8hqAGAgJZCWD2BLJ5UkZBmTZAFwlr6kPZAo7qwrY7sunEL2psuFM87GogQrH36wlHPvocZANdlDagbv17xjyPIvV1ZAX1Al7tPBF5Yysw",
   express = require('express'),
   bodyParser = require('body-parser'),
-  app = express().use(bodyParser.json()); // creates express http server
+  request = require('request'),
+  app = express();
+  
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
