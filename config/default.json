@@ -1,0 +1,6 @@
+{
+    "appSecret": "c49eb5cf92b74fab62e1d1a405c36fd2",
+    "pageAccessToken": "EAAYyQSvKHyoBADNqyRW0zOmGQduM7OqKIZAQuU1LKtAjjzJ0gb2XGdynHaznaAU6tyo7Yjxh0tRIASW73zlFyfDRjeFY3Y7a44wvZCeaELlkJ0TBcVJIKaOY3SNPynWbS6YAGHCcBd9YXDdJZAEUTdydXbDsZALEmkP7NyHLj5Pt2rak1L8E",
+    "validationToken": "skyvu_ar",
+    "serverURL": "https://fb-webhook-ar.herokuapp.com/webhook"
+}
