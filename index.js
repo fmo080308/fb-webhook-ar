@@ -40,7 +40,7 @@ app.post('/webhook', (req, res) => {
 app.get('/webhook', (req, res) => {
 
   // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "skyvu_ar"
+  let VERIFY_TOKEN = "skyvu_ar";
     
   // Parse the query params
   let mode = req.query['hub.mode'];
