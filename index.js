@@ -1,19 +1,22 @@
 'use strict';
 
 // Imports dependencies and set up http server
-const
-  express = require('express'),
-  bodyParser = require('body-parser'),
-  request = require('request');
+
+var  express = require('express');
+var  bodyParser = require('body-parser');
+var  request = require('request');
 var  expressWs = require('express-ws');
 var  expressWs = expressWs(express());
 var  app = expressWs.app;
+var  socketArray = [];
+
   
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+app.use(express.static('public'));
+
+var  aWss = expressWs.getWss('/');
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
@@ -29,6 +32,7 @@ app.post('/webhook', (req, res) => {
       // Gets the message. entry.messaging is an array, but 
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
+	  
       console.log(webhook_event);
     });
 
@@ -36,6 +40,14 @@ app.post('/webhook', (req, res) => {
     res.status(200).send('EVENT_RECEIVED');
   } else {
     // Returns a '404 Not Found' if event is not from a page subscription
+	
+	console.log(socketArray.length);
+	var i;
+	for(i = 0; i < socketArray.length;i++)
+	{
+		socketArray[i].send("REPLY");
+	}
+	
     res.sendStatus(404);
   }
 
@@ -71,23 +83,15 @@ app.get('/webhook', (req, res, next) => {
 }
 );
 
-app.ws('/server', function(ws, req) {
-  ws.on('message', function(msg) {
-    console.log(msg);
-  });
-  console.log('socket', req.testing);
-});
-
-app.ws('/webhook', function(ws, req) {
-  ws.on('message', function(msg) {
-    console.log(msg);
-  });
-  console.log('socket', req.testing);
-});
-
 app.ws('/', function(ws, req) {
   ws.on('message', function(msg) {
     console.log(msg);
+	ws.send("HELLO BACK");
   });
-  console.log('socket', req.testing);
+  console.log("CONNECTED");
+  
+  socketArray.push(ws);
 });
+
+// Sets server port and logs message on success
+app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
