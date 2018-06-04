@@ -6,7 +6,7 @@ const
   bodyParser = require('body-parser'),
   request = require('request'),
   WebSocket = require('ws'),
-  wss = new WebSocket.Server({ port: 8080 }),
+  wss = new WebSocket.Server({ port: 1337 }),
   app = express();
   
 app.use(bodyParser.urlencoded({extended: false}));
