@@ -77,3 +77,17 @@ app.ws('/server', function(ws, req) {
   });
   console.log('socket', req.testing);
 });
+
+app.ws('/webhook', function(ws, req) {
+  ws.on('message', function(msg) {
+    console.log(msg);
+  });
+  console.log('socket', req.testing);
+});
+
+app.ws('/', function(ws, req) {
+  ws.on('message', function(msg) {
+    console.log(msg);
+  });
+  console.log('socket', req.testing);
+});
