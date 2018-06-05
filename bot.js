@@ -5,7 +5,7 @@ module.exports = function(app) {
     //
     // GET /bot
     //
-    app.get('/bot', function(request, response) {
+    app.get('/webhook', function(request, response) {
         if (request.query['hub.mode'] === 'subscribe' && 
             request.query['hub.verify_token'] === process.env.BOT_VERIFY_TOKEN) {            
             console.log("Validating webhook");
@@ -19,7 +19,7 @@ module.exports = function(app) {
     //
     // POST /bot
     //
-    app.post('/bot', function(request, response) {
+    app.post('/webhook', function(request, response) {
        var data = request.body;
        console.log('received bot webhook');
         // Make sure this is a page subscription
