@@ -135,17 +135,23 @@ var DemoLoadBalancing = /** @class */ (function (_super) {
         return _this;
     }
     DemoLoadBalancing.prototype.start = function () {
+        console.log("HELLO");
         this.setupUI();
+        console.log("HELLO");
         // connect if no fb auth required 
         if (ConnectOnStart) {
+            console.log("HELLO");
             if (DemoMasterServer) {
+                console.log("HELLO");
                 this.setMasterServerAddress(DemoMasterServer);
                 this.connect();
             }
             else {
+                console.log("HELLO");
                 this.connectToRegionMaster("EU");
             }
         }
+        console.log("HELLO");
     };
     DemoLoadBalancing.prototype.onError = function (errorCode, errorMsg) {
         this.output("Error " + errorCode + ": " + errorMsg);
