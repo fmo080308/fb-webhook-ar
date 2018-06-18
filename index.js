@@ -97,7 +97,6 @@ app.ws('/', function(ws, req) {
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
-var Photon = require('Photon');
 
 /// <reference path="Photon/Photon-Javascript_SDK.d.ts"/> 
 var __extends = (this && this.__extends) || (function () {
@@ -354,6 +353,7 @@ var DemoLoadBalancing = /** @class */ (function (_super) {
 }(Photon.LoadBalancing.LoadBalancingClient));
 var demo;
 window.onload = function () {
+    console.log("HELLO START PHOTON");
     demo = new DemoLoadBalancing();
     demo.start();
 };
