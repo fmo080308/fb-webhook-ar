@@ -8,7 +8,8 @@ var  request = require('request');
 var  expressWs = require('express-ws');
 var  expressWs = expressWs(express());
 var  app = expressWs.app;
-var  socketArray = [];
+var socketArray = [];
+var Photon = require('Photon');
 
   
 app.use(bodyParser.urlencoded({extended: false}));
@@ -94,7 +95,7 @@ app.ws('/', function(ws, req) {
 });
 
 // Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => DemoLoadBalancing.prototype.start());
+app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 /// <reference path="Photon/Photon-Javascript_SDK.d.ts"/> 
 var __extends = (this && this.__extends) || (function () {
