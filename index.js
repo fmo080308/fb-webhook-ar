@@ -7,9 +7,13 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json());
 app.use(cors());
 
-module.exports._title = "variableValue";
-module.exports._content = "variableValue";
-module.exports._url = "variableValue";
+var _title = "variable";
+var _content = "variable";
+var _url = "variable";
+
+module.exports = _title;
+module.exports = _content;
+module.exports = _url;
 
 var PlayFab = require("playfab-sdk");
 
