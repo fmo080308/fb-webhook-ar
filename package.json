@@ -16,6 +16,7 @@
     "express": "4.15.2",
     "http": "0.0.0",
     "pg": "6.x",
+    "playfab-sdk": "^2.9.180716",
     "request": "^2.81.0"
   },
   "keywords": [
