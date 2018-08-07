@@ -16,6 +16,17 @@ module.exports = function(app) {
         }  
     });
 
+    app.get('/webhook', function (request, response) {
+        if (request.query['hub.mode'] === 'subscribe' &&
+            request.query['hub.verify_token'] === "skyvu_ar") {
+            console.log("Validating webhook");
+            response.status(200).send(request.query['hub.challenge']);
+        } else {
+            console.error("Failed validation. Make sure the validation tokens match.");
+            response.sendStatus(403);
+        }
+    });
+
     //
     // POST /bot
     //
@@ -30,6 +41,30 @@ module.exports = function(app) {
                var timeOfEvent = entry.time;
                 // Iterate over each messaging event
                 entry.messaging.forEach(function(event) {
+                    if (event.message) {
+                        receivedMessage(event);
+                    } else if (event.game_play) {
+                        receivedGameplay(event);
+                    } else {
+                        console.log("Webhook received unknown event: ", event);
+                    }
+                });
+            });
+        }
+        response.sendStatus(200);
+    });
+
+    app.post('/webhook', function (request, response) {
+        var data = request.body;
+        console.log('received bot webhook');
+        // Make sure this is a page subscription
+        if (data.object === 'page') {
+            // Iterate over each entry - there may be multiple if batched
+            data.entry.forEach(function (entry) {
+                var pageID = entry.id;
+                var timeOfEvent = entry.time;
+                // Iterate over each messaging event
+                entry.messaging.forEach(function (event) {
                     if (event.message) {
                         receivedMessage(event);
                     } else if (event.game_play) {
