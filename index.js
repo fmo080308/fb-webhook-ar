@@ -55,9 +55,9 @@ function LoginCallback(error, result) {
 
 function GetNewsCallback(error, result) {
     if (result !== null) {
-        console.log(result.data.News);
+        console.log(result.data.News[0].Body);
 
-         var data = result.data.News[0];
+        var data = result.data.News[0].Body;
 
         _title = data.title;
         _content = data.content;
