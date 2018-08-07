@@ -7,9 +7,9 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json());
 app.use(cors());
 
-var _title = "Hello";
-var _imageUrl = "Hi";
-var _content = "Aloha";
+module.exports._title = "variableValue";
+module.exports._content = "variableValue";
+module.exports._url = "variableValue";
 
 var PlayFab = require("playfab-sdk");
 
@@ -59,9 +59,9 @@ function GetNewsCallback(error, result) {
 
         _title = data.title;
         _content = data.content;
-        _imageUrl = data.url;
+        _url = data.url;
 
-        console.log(_title + " : " + _content + " : " + _imageUrl);
+        console.log(_title + " : " + _content + " : " + _url);
 
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");

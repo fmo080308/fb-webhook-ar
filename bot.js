@@ -1,4 +1,5 @@
 var request = require('request');
+var mainFile = require('./index');
 
 
 module.exports = function(app) {
@@ -83,7 +84,7 @@ module.exports = function(app) {
             sendMessage(senderId, null, "Message to game client: '" + payload.message + "'", "Play now!", payload, null);
         }
         else {
-            sendMessage(senderId, null, _content, _title, null, _imageUrl);
+            sendMessage(senderId, null, mainFile._content, mainFile._title, null, mainFile._url);
         }
     }
 
