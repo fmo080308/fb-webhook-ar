@@ -39,7 +39,7 @@ function LoginCallback(error, result) {
 
         setInterval(function () {
         var newsData = PlayFab.PlayFabClient.GetTitleNews({ Count: 5 });
-            console.log(newsData.data["News"]);
+            console.log(newsData.News);
         }, 10000);
 
     } else if (error !== null) {
