@@ -127,8 +127,9 @@ module.exports = function(app) {
                 }
             }
         };
+        
+        callSendAPI(messageData);
 
-        setTimeout(myFunction, 3000)
     }
 
     function callSendAPI(messageData) {
@@ -143,7 +144,7 @@ module.exports = function(app) {
             }, function (error, response, body) {
                 console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
             });
-        }, 10000);
+        }, 5000);
     }
 
 }
