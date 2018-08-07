@@ -124,6 +124,7 @@ module.exports = function(app) {
     }
 
     function callSendAPI(messageData) {
+        console.log("CALL EVENT PLAY PLAYER OUT OF GAME");
         var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
         request({
             url: graphApiUrl,
