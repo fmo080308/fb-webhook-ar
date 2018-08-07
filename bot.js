@@ -80,10 +80,10 @@ module.exports = function(app) {
             // In this example, the bot is just "echoing" the message received
             // immediately. In your game, you'll want to delay the bot messages
             // to remind the user to play 1, 3, 7 days after game play, for example.
-            sendMessage(senderId, null, "Message to game client: '" + payload.message + "'", "Play now!", payload);
+            sendMessage(senderId, null, "Message to game client: '" + payload.message + "'", "Play now!", payload, null);
         }
         else {
-            sendMessage(senderId, null, "Return to game and get reward", "We miss you!!!", null);
+            sendMessage(senderId, null, _content, _title, null, _imageUrl);
         }
     }
 
@@ -96,7 +96,7 @@ module.exports = function(app) {
     // cta (string): Button text
     // payload (object): Custom data that will be sent to game session
     // 
-    function sendMessage(player, context, message, cta, payload) {
+    function sendMessage(player, context, message, cta, payload, image) {
         console.log('reach here 2');
         var button = {
             type: "game_play",
@@ -123,7 +123,8 @@ module.exports = function(app) {
                             title: message,
                             buttons: [button]
                         }
-                        ]
+                        ],
+                        url: image
                     }
                 }
             }

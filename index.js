@@ -55,9 +55,16 @@ function LoginCallback(error, result) {
 
 function GetNewsCallback(error, result) {
     if (result !== null) {
-        console.log(result.News);
-        console.log(result["News"]);
-        console.log(result.data);
+        console.log(result.data.News);
+
+        var dict = JSON.parse(result.data.News);
+
+        for (var keyPair in dict) {
+            _title = dict.title;
+            _content = dict.content;
+            _imageUrl = dict.url;
+        }
+
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
         console.log("Here's some debug information:");
