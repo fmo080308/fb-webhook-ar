@@ -16,17 +16,6 @@ module.exports = function(app) {
         }  
     });
 
-    app.get('/webhook', function (request, response) {
-        if (request.query['hub.mode'] === 'subscribe' &&
-            request.query['hub.verify_token'] === "skyvu_ar") {
-            console.log("Validating webhook");
-            response.status(200).send(request.query['hub.challenge']);
-        } else {
-            console.error("Failed validation. Make sure the validation tokens match.");
-            response.sendStatus(403);
-        }
-    });
-
     //
     // POST /bot
     //
@@ -35,39 +24,18 @@ module.exports = function(app) {
        console.log('received bot webhook');
         // Make sure this is a page subscription
         if (data.object === 'page') {
+            console.log('data.object : ' + data.object);
             // Iterate over each entry - there may be multiple if batched
             data.entry.forEach(function(entry) {
                var pageID = entry.id;
                var timeOfEvent = entry.time;
                 // Iterate over each messaging event
-                entry.messaging.forEach(function(event) {
-                    if (event.message) {
-                        receivedMessage(event);
-                    } else if (event.game_play) {
-                        receivedGameplay(event);
-                    } else {
-                        console.log("Webhook received unknown event: ", event);
-                    }
-                });
-            });
-        }
-        response.sendStatus(200);
-    });
-
-    app.post('/webhook', function (request, response) {
-        var data = request.body;
-        console.log('received bot webhook');
-        // Make sure this is a page subscription
-        if (data.object === 'page') {
-            // Iterate over each entry - there may be multiple if batched
-            data.entry.forEach(function (entry) {
-                var pageID = entry.id;
-                var timeOfEvent = entry.time;
-                // Iterate over each messaging event
                 entry.messaging.forEach(function (event) {
                     if (event.message) {
+                        console.log('received Message');
                         receivedMessage(event);
                     } else if (event.game_play) {
+                        console.log('received GamePlay');
                         receivedGameplay(event);
                     } else {
                         console.log("Webhook received unknown event: ", event);
@@ -100,6 +68,9 @@ module.exports = function(app) {
 
         // Check for payload
         if (event.game_play.payload) {
+
+            console.log('reach here 1');
+
             //
             // The variable payload here contains data set by
             // FBInstant.setSessionData()
@@ -123,6 +94,7 @@ module.exports = function(app) {
     // payload (object): Custom data that will be sent to game session
     // 
     function sendMessage(player, context, message, cta, payload) {
+        console.log('reach here 2');
         var button = {
             type: "game_play",
             title: cta
