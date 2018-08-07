@@ -1,6 +1,6 @@
 var request = require('request');
 var mainFile = require('./index');
-
+var timerDict = {};
 
 module.exports = function(app) {
 
@@ -132,13 +132,21 @@ module.exports = function(app) {
             }
         };
         
-        callSendAPI(messageData);
+        callSendAPI(player, messageData);
 
     }
 
-    function callSendAPI(messageData) {
-        setTimeout(function () {
-            console.log("CALL EVENT PLAY PLAYER OUT OF GAME : ");
+    function callSendAPI(player, messageData) {
+
+        if (timerDict[player] === null || timerDict[player] === undefined) {
+
+        }
+        else {
+            clearTimeout(timerDict[player]);
+            console.log("TIMER RESET");
+        }
+
+        var timer = setTimeout(function () {
             var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
             request({
                 url: graphApiUrl,
@@ -148,7 +156,9 @@ module.exports = function(app) {
             }, function (error, response, body) {
                 console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
             });
-        }, 5000);
+        }, 10000);
+
+        timerDict[player] = timer;
     }
 
 }
