@@ -11,14 +11,14 @@ var _title = "Hello";
 var _imageUrl = "Hi";
 var _content = "Aloha";
 
-var PlayFabClient = require('./Scripts/PlayFab/PlayFabClient.js')
+var PlayFab = require("playfab-sdk");
 
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
 
 function LoginWithCustomID() {
-    PlayFabClient.settings.titleId = "D47F";
+    PlayFab.settings.titleId = "D47F";
     var loginRequest = {
         // Currently, you need to look up the correct format for this object in the API-docs:
         // https://api.playfab.com/Documentation/Client/method/LoginWithCustomID
@@ -27,7 +27,7 @@ function LoginWithCustomID() {
         CreateAccount: true
     };
 
-    PlayFabClient.LoginWithCustomID(loginRequest, LoginCallback);
+    PlayFab.PlayFabClient.LoginWithCustomID(loginRequest, LoginCallback);
 }
 
 function LoginCallback(error, result) {
