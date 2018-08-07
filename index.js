@@ -15,6 +15,9 @@ var PlayFab = require("playfab-sdk");
 
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
+
+    // Kick off the actual login call
+    LoginWithCustomID();
 });
 
 function LoginWithCustomID() {
@@ -52,8 +55,7 @@ function CompileErrorReport(error) {
     return fullErrors;
 }
 
-// Kick off the actual login call
-LoginWithCustomID();
+
 
 require('./matches.js')(app);
 require('./bot.js')(app);
