@@ -77,6 +77,7 @@ app.get('/webhook', (req, res, next) => {
     
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
+        console.log('WEBHOOK_FAILED');
       res.sendStatus(403);      
     }
   }
