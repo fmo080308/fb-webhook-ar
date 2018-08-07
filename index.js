@@ -5,7 +5,13 @@
 var  express = require('express');
 var  bodyParser = require('body-parser');
 var  request = require('request');
+var  expressWs = require('express-ws');
+var  expressWs = expressWs(express());
+var  app = expressWs.app;
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
