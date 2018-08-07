@@ -7,13 +7,15 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json());
 app.use(cors());
 
-var News = {
-    title: "",
-    content: "",
-    url: ""
+var _title = "";
+var _content = "";
+var _url = "";
+
+function News() {
+    return { title: _title, content: _content, url: _url };
 }
 
-module.exports = News;
+module.exports.News = News;
 
 var PlayFab = require("playfab-sdk");
 
@@ -61,9 +63,9 @@ function GetNewsCallback(error, result) {
     if (result !== null) {
         var data = JSON.parse(result.data.News[0].Body+"");
 
-        News.title = data.title;
-        News.content = data.content;
-        News.url = data.url;
+        _title = data.title;
+        _content = data.content;
+        _url = data.url;
 
         console.log(News.title + " : " + News.content + " : " + News.url);
 
