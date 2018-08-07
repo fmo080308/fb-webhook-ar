@@ -1,20 +1,8 @@
 {
-  "name": "fb-webhook-ar",
-  "scripts": {
-  },
-  "env": {
-  },
-  "formation": {
-    "web": {
-      "quantity": 1
-    }
-  },
-  "addons": [
-
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ]
+  "name": "Instant Game Backend",
+  "description": "Instant Games",
+  "repository": "https://github.com/fmo080308/fb-webhook-ar",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku", "fbinstant"],
+  "image": "heroku/nodejs"
 }
