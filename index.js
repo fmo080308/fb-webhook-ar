@@ -57,13 +57,13 @@ function GetNewsCallback(error, result) {
     if (result !== null) {
         console.log(result.data.News);
 
-        var dict = JSON.parse(result.data.News);
+         var data = result.data.News[0];
 
-        for (var keyPair in dict) {
-            _title = dict.title;
-            _content = dict.content;
-            _imageUrl = dict.url;
-        }
+        _title = data.title;
+        _content = data.content;
+        _imageUrl = data.url;
+
+        console.log(_title + " : " + _content + " : " + _imageUrl);
 
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
