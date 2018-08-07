@@ -69,7 +69,6 @@ module.exports = function(app) {
         // Check for payload
         if (event.game_play.payload) {
 
-            console.log('reach here 1');
 
             //
             // The variable payload here contains data set by
@@ -81,6 +80,9 @@ module.exports = function(app) {
             // immediately. In your game, you'll want to delay the bot messages
             // to remind the user to play 1, 3, 7 days after game play, for example.
             sendMessage(senderId, null, "Message to game client: '" + payload.message + "'", "Play now!", payload);
+        }
+        else {
+            sendMessage(senderId, null, "Return to game and get reward", "We miss you!!!", null);
         }
     }
 
