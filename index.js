@@ -7,13 +7,13 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json());
 app.use(cors());
 
-var _title = "variable";
-var _content = "variable";
-var _url = "variable";
+var News = {
+    title: "",
+    content: "",
+    url: ""
+}
 
-module.exports = _title;
-module.exports = _content;
-module.exports = _url;
+module.exports = News;
 
 var PlayFab = require("playfab-sdk");
 
@@ -61,9 +61,9 @@ function GetNewsCallback(error, result) {
     if (result !== null) {
         var data = JSON.parse(result.data.News[0].Body+"");
 
-        _title = data.title;
-        _content = data.content;
-        _url = data.url;
+        News.title = data.title;
+        News.content = data.content;
+        News.url = data.url;
 
         console.log(_title + " : " + _content + " : " + _url);
 

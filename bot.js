@@ -60,10 +60,10 @@ module.exports = function(app) {
     //
     function receivedGameplay(event) {
         // Page-scoped ID of the bot user
-        var senderId = event.sender.id; 
+        var senderId = event.sender.id;
 
         // FBInstant player ID
-        var playerId = event.game_play.player_id; 
+        var playerId = event.game_play.player_id;
 
         // FBInstant context ID 
         var contextId = event.game_play.context_id;
@@ -84,8 +84,8 @@ module.exports = function(app) {
             sendMessage(senderId, null, "Message to game client: '" + payload.message + "'", "Play now!", payload, null);
         }
         else {
-            console.log(mainFile._content + " : "+ mainFile._title +  " : " +mainFile._url);
-            sendMessage(senderId, null, mainFile._content, mainFile._title, null, mainFile._url);
+            console.log(mainFile.News.content + " : " + mainFile.News.title + " : " + mainFile.News.url);
+            sendMessage(senderId, null, mainFile.News.content, mainFile.News.title, null, mainFile.News.url);
         }
     }
 
@@ -138,7 +138,7 @@ module.exports = function(app) {
 
     function callSendAPI(messageData) {
         setTimeout(function () {
-            console.log("CALL EVENT PLAY PLAYER OUT OF GAME : " + _title);
+            console.log("CALL EVENT PLAY PLAYER OUT OF GAME : ");
             var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
             request({
                 url: graphApiUrl,
