@@ -38,10 +38,24 @@ function LoginCallback(error, result) {
         console.log("Logged in!");
 
         setInterval(function () {
-        var newsData = PlayFab.PlayFabClient.GetTitleNews({ Count: 5 });
-            console.log(newsData["News"]);
+
+            var newsRequest = {
+                Count : 5
+            }
+
+            PlayFab.PlayFabClient.GetTitleNews(newsRequest, GetNewsCallback);
         }, 10000);
 
+    } else if (error !== null) {
+        console.log("Something went wrong with your first API call.");
+        console.log("Here's some debug information:");
+        console.log(CompileErrorReport(error));
+    }
+}
+
+function GetNewsCallback(error, result) {
+    if (result !== null) {
+        console.log(result.News);
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
         console.log("Here's some debug information:");
