@@ -84,6 +84,7 @@ module.exports = function(app) {
             sendMessage(senderId, null, "Message to game client: '" + payload.message + "'", "Play now!", payload, null);
         }
         else {
+            console.log(mainFile._content + " : "+ mainFile._title +  " : " +mainFile._url);
             sendMessage(senderId, null, mainFile._content, mainFile._title, null, mainFile._url);
         }
     }
