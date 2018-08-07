@@ -35,7 +35,12 @@ function LoginWithCustomID() {
 
 function LoginCallback(error, result) {
     if (result !== null) {
-        console.log("Congratulations, you made your first successful API call!");
+        console.log("Logged in!");
+
+        setInterval(function () {
+        var newsData = PlayFab.PlayFabClient.GetTitleNews({ Count: 5 });
+            console.log(newsData.data["News"]);
+        }, 10000);
 
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
