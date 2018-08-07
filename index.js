@@ -67,7 +67,7 @@ function GetNewsCallback(error, result) {
         _content = data.content;
         _url = data.url;
 
-        console.log(News.title + " : " + News.content + " : " + News.url);
+        console.log(News().title + " : " + News().content + " : " + News().url);
 
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
