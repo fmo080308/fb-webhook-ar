@@ -56,7 +56,7 @@ function LoginCallback(error, result) {
 function GetNewsCallback(error, result) {
     if (result !== null) {
         console.log(result.News);
-        console.log(result.["News"]);
+        console.log(result["News"]);
         console.log(result.data);
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
