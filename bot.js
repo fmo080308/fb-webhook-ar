@@ -120,12 +120,12 @@ module.exports = function(app) {
                     payload: {
                         template_type: "generic",
                         elements: [
-                        {
-                            title: message,
-                            buttons: [button]
-                        }
-                        ],
-                        url: image
+                            {
+                                title: message,
+                                buttons: [button],
+                                url: image
+                            }
+                        ]
                     }
                 }
             }
