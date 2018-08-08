@@ -18,6 +18,10 @@ module.exports = function(app) {
         }  
     });
 
+    app.get('/wake', function (request, response) {
+        console.log("WAKE UP!");
+    });
+
     //
     // POST /bot
     //

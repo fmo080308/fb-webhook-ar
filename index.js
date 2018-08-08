@@ -24,6 +24,10 @@ app.listen(app.get('port'), function() {
 
     // Kick off the actual login call
     LoginWithCustomID();
+
+    setInterval(function () {
+        http.get("https://fb-webhook-ar.herokuapp.com/wake");
+    }, 300000); // every 5 minutes (300000)
 });
 
 function LoginWithCustomID() {
