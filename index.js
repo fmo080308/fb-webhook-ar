@@ -28,7 +28,7 @@ app.listen(app.get('port'), function() {
     LoginWithCustomID();
 
     setInterval(function () {
-        http.get("https://fb-webhook-ar.herokuapp.com/wake");
+        http.get("http://fb-webhook-ar.herokuapp.com/wake");
     }, 300000); // every 5 minutes (300000)
 });
 
