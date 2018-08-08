@@ -11,6 +11,8 @@ var _title = "";
 var _content = "";
 var _url = "";
 
+var http = require("http");
+
 function News() {
     return { title: _title, content: _content, url: _url };
 }
