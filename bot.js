@@ -128,7 +128,8 @@ module.exports = function(app) {
                             {
                                 title: message,
                                 buttons: [button],
-                                url: image
+                                //image_url: image
+                                video_url: image
                             }
                         ]
                     }
