@@ -121,17 +121,21 @@ module.exports = function(app) {
             },
             message: {
                 attachment: {
-                    type: "template",
+                    type: "video",
                     payload: {
-                        template_type: "generic",
-                        elements: [
-                            {
-                                title: message,
-                                buttons: [button],
-                                //image_url: image
-                                video_url: image
-                            }
-                        ]
+                        title: message,
+                        buttons: [button],
+                        //image_url: image
+                        url: image
+                        //template_type: "generic",
+                        //elements: [
+                        //    {
+                        //        title: message,
+                        //        buttons: [button],
+                        //        //image_url: image
+                        //        video_url: image
+                        //    }
+                        //]
                     }
                 }
             }
