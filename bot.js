@@ -128,7 +128,7 @@ module.exports = function(app) {
                             {
                                 title: message,
                                 buttons: [button],
-                                image_url: image
+                                url: image
                             }
                         ]
                     }
