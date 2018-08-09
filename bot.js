@@ -123,8 +123,8 @@ module.exports = function(app) {
                 attachment: {
                     type: "video",
                     payload: {
-                        title: message,
-                        buttons: [button],
+                        //title: message,
+                        //buttons: [button],
                         //image_url: image
                         url: image
                         //template_type: "generic",
