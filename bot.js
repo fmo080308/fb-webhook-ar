@@ -103,7 +103,6 @@ module.exports = function(app) {
     // payload (object): Custom data that will be sent to game session
     // 
     function sendMessage(player, context, message, cta, payload, image) {
-        console.log('reach here 2');
         var button = {
             type: "game_play",
             title: cta
@@ -121,21 +120,16 @@ module.exports = function(app) {
             },
             message: {
                 attachment: {
-                    type: "video",
+                    type: "template",
                     payload: {
-                        //title: message,
-                        //buttons: [button],
-                        //image_url: image
-                        url: image
-                        //template_type: "generic",
-                        //elements: [
-                        //    {
-                        //        title: message,
-                        //        buttons: [button],
-                        //        //image_url: image
-                        //        video_url: image
-                        //    }
-                        //]
+                        template_type: "media",
+                        elements: [
+                            {
+                                media_type: "video",
+                                url: image,
+                                buttons: [button]
+                            }
+                        ]
                     }
                 }
             }
