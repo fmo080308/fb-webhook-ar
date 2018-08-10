@@ -144,7 +144,7 @@ module.exports = function (app) {
             clearTimeout(timerDict[player]);
             console.log("TIMER RESET");
         }
-        timerDict[player] = SetTimer(10000, messageData, player, true);
+        timerDict[player] = SetTimer(100000, messageData, player, true);
     }
 
     function SetTimer(time, messageData, player, loop) {
@@ -160,7 +160,7 @@ module.exports = function (app) {
             });
 
             if (loop) {
-                timerDict[player] = SetTimer(10000, messageData, player, true);
+                timerDict[player] = SetTimer(100000, messageData, player, true);
             }
         }, time);
 

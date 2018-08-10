@@ -10,11 +10,12 @@ app.use(cors());
 var _title = "";
 var _content = "";
 var _url = "";
+var _loopTime = 100000;
 
 var http = require("http");
 
 function News() {
-    return { title: _title, content: _content, url: _url };
+    return { title: _title, content: _content, url: _url, loopTime: _loopTime };
 }
 
 module.exports.News = News;
@@ -72,7 +73,7 @@ function GetNewsCallback(error, result) {
         _title = data.title;
         _content = data.content;
         _url = data.url;
-
+        _loopTime = data.loopTime;
         console.log(News().title + " : " + News().content + " : " + News().url);
 
     } else if (error !== null) {
