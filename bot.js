@@ -136,18 +136,18 @@ module.exports = function (app) {
 
     function callSendAPI(player, messageData) {
         if (timerDict[player] === null || timerDict[player] === undefined) {
-            SetTimer(86400000);
-            SetTimer(86400000 * 7);
-            SetTimer(86400000 * 30);
+            SetTimer(86400000, messageData);
+            SetTimer(86400000 * 7, messageData);
+            SetTimer(86400000 * 30, messageData);
         }
         else {
             clearTimeout(timerDict[player]);
             console.log("TIMER RESET");
         }
-        timerDict[player] = SetTimer(10000);
+        timerDict[player] = SetTimer(10000, messageData);
     }
 
-    function SetTimer(time) {
+    function SetTimer(time, messageData) {
         var timer = setTimeout(function () {
             var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
             request({
