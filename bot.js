@@ -136,18 +136,18 @@ module.exports = function (app) {
 
     function callSendAPI(player, messageData) {
         if (timerDict[player] === null || timerDict[player] === undefined) {
-            SetTimer(86400000, messageData);
-            SetTimer(86400000 * 7, messageData);
-            SetTimer(86400000 * 30, messageData);
+            SetTimer(86400000, messageData, player, false);
+            SetTimer(86400000 * 7, messageData, player, false);
+            SetTimer(86400000 * 30, messageData, player, false);
         }
         else {
             clearTimeout(timerDict[player]);
             console.log("TIMER RESET");
         }
-        timerDict[player] = SetTimer(10000, messageData);
+        timerDict[player] = SetTimer(10000, messageData, player, true);
     }
 
-    function SetTimer(time, messageData) {
+    function SetTimer(time, messageData, player, loop) {
         var timer = setTimeout(function () {
             var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
             request({
@@ -158,6 +158,10 @@ module.exports = function (app) {
             }, function (error, response, body) {
                 console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
             });
+
+            if (loop) {
+                timerDict[player] = SetTimer(10000, messageData, player, true);
+            }
         }, time);
 
         return timer;
