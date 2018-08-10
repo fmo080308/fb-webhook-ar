@@ -57,7 +57,7 @@ function LoginCallback(error, result) {
             }
 
             PlayFab.PlayFabClient.GetTitleNews(newsRequest, GetNewsCallback);
-        }, 10000);
+        }, 60000);
 
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
@@ -74,7 +74,7 @@ function GetNewsCallback(error, result) {
         _content = data.content;
         _url = data.url;
         _loopTime = data.loopTime;
-        console.log(News().title + " : " + News().content + " : " + News().url);
+        console.log("Updated");
 
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
