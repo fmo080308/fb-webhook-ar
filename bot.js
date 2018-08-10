@@ -2,20 +2,19 @@ var request = require('request');
 var mainFile = require('./index');
 var timerDict = {};
 
-module.exports = function(app) {
-
+module.exports = function (app) {
     //
     // GET /bot
     //
-    app.get('/bot', function(request, response) {
-        if (request.query['hub.mode'] === 'subscribe' && 
-            request.query['hub.verify_token'] === "skyvu_ar") {            
+    app.get('/bot', function (request, response) {
+        if (request.query['hub.mode'] === 'subscribe' &&
+            request.query['hub.verify_token'] === "skyvu_ar") {
             console.log("Validating webhook");
             response.status(200).send(request.query['hub.challenge']);
         } else {
             console.error("Failed validation. Make sure the validation tokens match.");
-            response.sendStatus(403);          
-        }  
+            response.sendStatus(403);
+        }
     });
 
     app.get('/wake', function (request, response) {
@@ -25,16 +24,16 @@ module.exports = function(app) {
     //
     // POST /bot
     //
-    app.post('/bot', function(request, response) {
-       var data = request.body;
-       console.log('received bot webhook');
+    app.post('/bot', function (request, response) {
+        var data = request.body;
+        console.log('received bot webhook');
         // Make sure this is a page subscription
         if (data.object === 'page') {
             console.log('data.object : ' + data.object);
             // Iterate over each entry - there may be multiple if batched
-            data.entry.forEach(function(entry) {
-               var pageID = entry.id;
-               var timeOfEvent = entry.time;
+            data.entry.forEach(function (entry) {
+                var pageID = entry.id;
+                var timeOfEvent = entry.time;
                 // Iterate over each messaging event
                 entry.messaging.forEach(function (event) {
                     if (event.message) {
@@ -56,11 +55,10 @@ module.exports = function(app) {
     // Handle messages sent by player directly to the game bot here
     //
     function receivedMessage(event) {
-      
     }
 
     //
-    // Handle game_play (when player closes game) events here. 
+    // Handle game_play (when player closes game) events here.
     //
     function receivedGameplay(event) {
         // Page-scoped ID of the bot user
@@ -69,13 +67,11 @@ module.exports = function(app) {
         // FBInstant player ID
         var playerId = event.game_play.player_id;
 
-        // FBInstant context ID 
+        // FBInstant context ID
         var contextId = event.game_play.context_id;
 
         // Check for payload
         if (event.game_play.payload) {
-
-
             //
             // The variable payload here contains data set by
             // FBInstant.setSessionData()
@@ -101,7 +97,7 @@ module.exports = function(app) {
     // message (string): Message text
     // cta (string): Button text
     // payload (object): Custom data that will be sent to game session
-    // 
+    //
     function sendMessage(player, context, message, cta, payload, image) {
         var button = {
             type: "game_play",
@@ -134,21 +130,24 @@ module.exports = function(app) {
                 }
             }
         };
-        
-        callSendAPI(player, messageData);
 
+        callSendAPI(player, messageData);
     }
 
     function callSendAPI(player, messageData) {
-
         if (timerDict[player] === null || timerDict[player] === undefined) {
-
+            SetTimer(86400000);
+            SetTimer(86400000 * 7);
+            SetTimer(86400000 * 30);
         }
         else {
             clearTimeout(timerDict[player]);
             console.log("TIMER RESET");
         }
+        timerDict[player] = SetTimer(10000);
+    }
 
+    function SetTimer(time) {
         var timer = setTimeout(function () {
             var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
             request({
@@ -159,9 +158,8 @@ module.exports = function(app) {
             }, function (error, response, body) {
                 console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
             });
-        }, 10000);
+        }, time);
 
-        timerDict[player] = timer;
+        return timer;
     }
-
 }
