@@ -136,9 +136,12 @@ module.exports = function (app) {
 
     function callSendAPI(player, messageData) {
         if (timerDict[player] === null || timerDict[player] === undefined) {
-            SetTimer(86400000, messageData, player, false);
-            SetTimer(86400000 * 7, messageData, player, false);
-            SetTimer(86400000 * 30, messageData, player, false);
+            //SetTimer(86400000, messageData, player, false);
+            //SetTimer(86400000 * 7, messageData, player, false);
+            //SetTimer(86400000 * 30, messageData, player, false);
+
+            SetTimer(100000, messageData, player, false);
+            SetTimer(200000, messageData, player, false);
         }
         else {
             clearTimeout(timerDict[player]);
@@ -149,8 +152,8 @@ module.exports = function (app) {
 
     function SetTimer(time, messageData, player, loop) {
         var timer = setTimeout(function () {
-            //var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
-            var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAAGqhR4rBPABAEa754D3GQEKBzTdf6AkEuH2kHotrh7SRzZBa0gZAUZCwl2ZB2nNiK8FeCeadeutrBfLwB2ZBON5MxXGc1ZB97ytXTFawpWr2SFWVln5iXs5PzaHMa87q1ssmyTxyn9m3GTUtOPeBmpdWY8tGpA1UCc5SJqzrJpgZDZD'
+            var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
+            //var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAAGqhR4rBPABAEa754D3GQEKBzTdf6AkEuH2kHotrh7SRzZBa0gZAUZCwl2ZB2nNiK8FeCeadeutrBfLwB2ZBON5MxXGc1ZB97ytXTFawpWr2SFWVln5iXs5PzaHMa87q1ssmyTxyn9m3GTUtOPeBmpdWY8tGpA1UCc5SJqzrJpgZDZD'
             request({
                 url: graphApiUrl,
                 method: "POST",
