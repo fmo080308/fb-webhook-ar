@@ -91,6 +91,7 @@ function GetNewsCallback(error, result) {
     if (result !== null) {
         var data = "";
         for (var keyPair in result.data.News) {
+            console.log(keyPair.Body);
             data = JSON.parse(keyPair.Body + "");
             if (JSON.parse(keyPair.Body + "").type === "RETURN") {
                 RETURN_NEWS.title = data.title;
