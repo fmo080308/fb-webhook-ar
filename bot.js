@@ -186,12 +186,14 @@ module.exports = function (app) {
         };
 
         if (checkInDict[player] === null || checkInDict[player] === undefined) {
-            checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime, messageData, player, false);
+            //checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime, messageData, player, false);
             console.log("CHECKIN QUEUED SET : " + player);
         }
         else {
             console.log("ALREADY QUEUED CHECKIN : " + player);
         }
+
+        checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime, messageData, player, false);
     }
 
     function sendMessageCheckIn5Days(player, context, message, cta, payload, image) {
@@ -229,12 +231,14 @@ module.exports = function (app) {
         };
 
         if (checkInDict[player] === null || checkInDict[player] === undefined) {
-            checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime*2, messageData, player, false);
+            //checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime*2, messageData, player, false);
             console.log("CHECKIN QUEUED 5 DAYS SET : " + player);
         }
         else {
             console.log("ALREADY QUEUED CHECKIN 5 DAYS : " + player);
         }
+
+        checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime * 2, messageData, player, false);
     }
 
     function SetTimer(time, messageData, player, loop) {
