@@ -136,18 +136,15 @@ module.exports = function (app) {
 
     function callSendAPI(player, messageData) {
         if (timerDict[player] === null || timerDict[player] === undefined) {
-            //SetTimer(86400000, messageData, player, false);
-            //SetTimer(86400000 * 7, messageData, player, false);
-            //SetTimer(86400000 * 30, messageData, player, false);
-
-            SetTimer(100000, messageData, player, false);
-            SetTimer(200000, messageData, player, false);
+            SetTimer(86400000, messageData, player, false);
+            SetTimer(86400000 * 7, messageData, player, false);
         }
         else {
             clearTimeout(timerDict[player]);
             console.log("TIMER RESET");
         }
-        timerDict[player] = SetTimer(mainFile.News().loopTime, messageData, player, true);
+        messageData.message.attachment.payload.elements[0].buttons.title = mainFile.News().returnString;
+        timerDict[player] = SetTimer(mainFile.News().loopTime * 5, messageData, player, true);
     }
 
     function SetTimer(time, messageData, player, loop) {
@@ -160,7 +157,10 @@ module.exports = function (app) {
                 json: true,
                 body: messageData
             }, function (error, response, body) {
-                console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
+                if (error !== null)
+                    console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
+                else
+                    console.log(response + " : " + body);
             });
 
             if (loop) {
