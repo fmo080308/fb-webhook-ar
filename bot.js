@@ -194,7 +194,7 @@ module.exports = function (app) {
             console.log("ALREADY QUEUED CHECKIN : " + player);
         }
 
-        //checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime, messageData, player, false);
+        ////////checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime, messageData, player, false);
     }
 
     function sendMessageCheckIn5Days(player, context, message, cta, payload, image) {
