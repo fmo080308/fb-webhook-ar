@@ -3,6 +3,7 @@ var mainFile = require('./index');
 var returnDict = {};
 var eventDict = {};
 var checkInDict = {};
+var checkIn2Dict = {};
 
 module.exports = function (app) {
     //
@@ -230,8 +231,8 @@ module.exports = function (app) {
             }
         };
 
-        if (checkInDict[player] === null || checkInDict[player] === undefined) {
-            checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime*2, messageData, player, false);
+        if (checkIn2Dict[player] === null || checkIn2Dict[player] === undefined) {
+            checkIn2Dict[player] = SetTimer(mainFile.CHECKIN().loopTime*2, messageData, player, false);
             console.log("CHECKIN QUEUED 5 DAYS SET : " + player);
         }
         else {
