@@ -90,7 +90,8 @@ module.exports = function (app) {
             sendMessage(senderId, null, "Message to game client: '" + payload.message + "'", "Play now!", payload, null);
         }
         else {
-            console.log(mainFile.News().content + " : " + mainFile.News().title + " : " + mainFile.News().url);
+            console.log(mainFile.RETURN().content + " : " + mainFile.RETURN().title + " : " + mainFile.RETURN().url);
+            console.log(mainFile.CHECKIN().content + " : " + mainFile.CHECKIN().title + " : " + mainFile.CHECKIN().url);
             sendMessageReturn(senderId, null, mainFile.RETURN().content, mainFile.RETURN().title, null, mainFile.RETURN().url);
             sendMessageCheckIn(senderId, null, mainFile.CHECKIN().content, mainFile.CHECKIN().title, null, mainFile.CHECKIN().url);
             //sendMessageEvent(senderId, null, mainFile.EVENT().content, mainFile.EVENT().title, null, mainFile.EVENT().url);
