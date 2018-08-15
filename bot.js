@@ -169,15 +169,14 @@ module.exports = function (app) {
             },
             
             message: {
-                text: cta,
                 attachment: {
                     type: "template",
                     payload: {
-                        template_type: "media",
+                        template_type: "generic",
                         elements: [
                             {
-                                media_type: "image",
-                                url: image,
+                                title: cta,
+                                image_url: image,
                                 buttons: [button]
                             }
                         ]
@@ -213,15 +212,14 @@ module.exports = function (app) {
             },
            
             message: {
-                text: cta,
                 attachment: {
                     type: "template",
                     payload: {
-                        template_type: "media",
+                        template_type: "generic",
                         elements: [
                             {
-                                media_type: "image",
-                                url: image,
+                                title: cta,
+                                image_url: image,
                                 buttons: [button]
                             }
                         ]
