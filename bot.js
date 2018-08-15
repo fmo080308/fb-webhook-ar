@@ -147,7 +147,7 @@ module.exports = function (app) {
             clearTimeout(returnDict[player]);
             console.log("RETURN NOTIFICATION TIMER RESET : " + player);
         }
-        returnDict[player] = SetTimer(mainFile.RETURN().loopTime * 5, messageData, player, true);
+        returnDict[player] = SetTimer(mainFile.RETURN().loopTime, messageData, player, true);
     }
 
     function sendMessageCheckIn(player, context, message, cta, payload, image) {
