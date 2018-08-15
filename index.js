@@ -8,24 +8,24 @@ app.use(bodyParser.json());
 app.use(cors());
 
 var RETURN_NEWS = {
-    title = "",
-    content = "",
-    url = "",
-    loopTime = 100000
+    title : "",
+    content : "",
+    url : "",
+    loopTime : 100000
 };
 
 var EVENT_NEWS = {
-    title = "",
-    content = "",
-    url = "",
-    loopTime = 100000
+    title : "",
+    content : "",
+    url : "",
+    loopTime : 100000
 };
 
 var CHECKIN_NEWS = {
-    title = "",
-    content = "",
-    url = "",
-    loopTime = 100000
+    title : "",
+    content : "",
+    url : "",
+    loopTime : 100000
 };
 
 var http = require("http");
