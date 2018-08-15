@@ -91,21 +91,20 @@ function GetNewsCallback(error, result) {
     if (result !== null) {
         var data = "";
         for (var keyPair in result.data.News) {
-            console.log(keyPair.Body);
-            data = JSON.parse(keyPair.Body + "");
-            if (JSON.parse(keyPair.Body + "").type === "RETURN") {
+            data = JSON.parse(result.data.News[keyPair].Body + "");
+            if (JSON.parse(result.data.News[keyPair].Body + "").type === "RETURN") {
                 RETURN_NEWS.title = data.title;
                 RETURN_NEWS.content = data.content;
                 RETURN_NEWS.url = data.url;
                 RETURN_NEWS.loopTime = data.loopTime;
             }
-            else if (JSON.parse(keyPair.Body + "").type === "EVENT") {
+            else if (JSON.parse(result.data.News[keyPair].Body + "").type === "EVENT") {
                 EVENT_NEWS.title = data.title;
                 EVENT_NEWS.content = data.content;
                 EVENT_NEWS.url = data.url;
                 EVENT_NEWS.loopTime = data.loopTime;
             }
-            else if (JSON.parse(keyPair.Body + "").type === "CHECKIN") {
+            else if (JSON.parse(result.data.News[keyPair].Body + "").type === "CHECKIN") {
                 CHECKIN_NEWS.title = data.title;
                 CHECKIN_NEWS.content = data.content;
                 CHECKIN_NEWS.url = data.url;
