@@ -141,11 +141,11 @@ module.exports = function (app) {
         };
 
         if (returnDict[player] === null || returnDict[player] === undefined) {
-            console.log("RETURN NOTIFICATION TIMER SET : " + playerId);
+            console.log("RETURN NOTIFICATION TIMER SET : " + player);
         }
         else {
             clearTimeout(returnDict[player]);
-            console.log("RETURN NOTIFICATION TIMER RESET : " + playerId);
+            console.log("RETURN NOTIFICATION TIMER RESET : " + player);
         }
         returnDict[player] = SetTimer(mainFile.RETURN().loopTime * 5, messageData, player, true);
     }
@@ -186,10 +186,10 @@ module.exports = function (app) {
         if (checkInDict[player] === null || checkInDict[player] === undefined) {
             checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime, messageData, player, false);
             checkInDict[player + "_7DAYS"] = SetTimer(mainFile.CHECKIN().loopTime * 7, messageData, player, false);
-            console.log("CHECKIN QUEUED SET : " + playerId);
+            console.log("CHECKIN QUEUED SET : " + player);
         }
         else {
-            console.log("ALREADY QUEUED CHECKIN : " + playerId);
+            console.log("ALREADY QUEUED CHECKIN : " + player);
         }
     }
 
