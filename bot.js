@@ -1,6 +1,8 @@
 var request = require('request');
 var mainFile = require('./index');
-var timerDict = {};
+var returnDict = {};
+var eventDict = {};
+var checkInDict = {};
 
 module.exports = function (app) {
     //
@@ -19,6 +21,10 @@ module.exports = function (app) {
 
     app.get('/wake', function (request, response) {
         console.log("WAKE UP!");
+    });
+
+    app.get('/notify', function (request, response) {
+
     });
 
     //
@@ -85,7 +91,9 @@ module.exports = function (app) {
         }
         else {
             console.log(mainFile.News().content + " : " + mainFile.News().title + " : " + mainFile.News().url);
-            sendMessage(senderId, null, mainFile.News().content, mainFile.News().title, null, mainFile.News().url);
+            sendMessageReturn(senderId, null, mainFile.RETURN().content, mainFile.RETURN().title, null, mainFile.RETURN().url);
+            sendMessageCheckIn(senderId, null, mainFile.CHECKIN().content, mainFile.CHECKIN().title, null, mainFile.CHECKIN().url);
+            //sendMessageEvent(senderId, null, mainFile.EVENT().content, mainFile.EVENT().title, null, mainFile.EVENT().url);
         }
     }
 
@@ -98,7 +106,7 @@ module.exports = function (app) {
     // cta (string): Button text
     // payload (object): Custom data that will be sent to game session
     //
-    function sendMessage(player, context, message, cta, payload, image) {
+    function sendMessageReturn(player, context, message, cta, payload, image) {
         var button = {
             type: "game_play",
             title: cta
@@ -131,26 +139,62 @@ module.exports = function (app) {
             }
         };
 
-        callSendAPI(player, messageData);
-    }
-
-    function callSendAPI(player, messageData) {
-        if (timerDict[player] === null || timerDict[player] === undefined) {
-            SetTimer(86400000, messageData, player, false);
-            SetTimer(86400000 * 7, messageData, player, false);
+        if (returnDict[player] === null || returnDict[player] === undefined) {
+            console.log("RETURN NOTIFICATION TIMER SET : " + playerId);
         }
         else {
-            clearTimeout(timerDict[player]);
-            console.log("TIMER RESET");
+            clearTimeout(returnDict[player]);
+            console.log("RETURN NOTIFICATION TIMER RESET : " + playerId);
         }
-        messageData.message.attachment.payload.elements[0].buttons.title = mainFile.News().returnString;
-        timerDict[player] = SetTimer(mainFile.News().loopTime * 5, messageData, player, true);
+        returnDict[player] = SetTimer(mainFile.RETURN().loopTime * 5, messageData, player, true);
+    }
+
+    function sendMessageCheckIn(player, context, message, cta, payload, image) {
+        var button = {
+            type: "game_play",
+            title: cta
+        };
+
+        if (context) {
+            button.context = context;
+        }
+        if (payload) {
+            button.payload = JSON.stringify(payload)
+        }
+        var messageData = {
+            recipient: {
+                id: player
+            },
+            message: {
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "media",
+                        elements: [
+                            {
+                                media_type: "video",
+                                url: image,
+                                buttons: [button]
+                            }
+                        ]
+                    }
+                }
+            }
+        };
+
+        if (checkInDict[player] === null || checkInDict[player] === undefined) {
+            checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime, messageData, player, false);
+            checkInDict[player + "_7DAYS"] = SetTimer(mainFile.CHECKIN().loopTime * 7, messageData, player, false);
+            console.log("CHECKIN QUEUED SET : " + playerId);
+        }
+        else {
+            console.log("ALREADY QUEUED CHECKIN : " + playerId);
+        }
     }
 
     function SetTimer(time, messageData, player, loop) {
         var timer = setTimeout(function () {
-            var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAACZC0BT8NbcBAKoZANpXjaI0iZAQ37Eq6w0b0QNRSp39xTtZCGmR2ZCPO87p2GEpZAQbwZCSoSKmniRlaCeIYG5XdVT31cxIYAq1dzbq4eeRKojj2kRj586HtDv3S6upcKmN7sLVZAiqnJ6uUh260nMvIYuaRSG1QvyyQQBqWXwPBhkbksxqmbh'
-            //var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAAGqhR4rBPABAEa754D3GQEKBzTdf6AkEuH2kHotrh7SRzZBa0gZAUZCwl2ZB2nNiK8FeCeadeutrBfLwB2ZBON5MxXGc1ZB97ytXTFawpWr2SFWVln5iXs5PzaHMa87q1ssmyTxyn9m3GTUtOPeBmpdWY8tGpA1UCc5SJqzrJpgZDZD'
+            var graphApiUrl = 'https://graph.facebook.com/me/messages?access_token=EAAGqhR4rBPABAGSBZCeAABi2NgBwRz2Cti3ECRkRETsrAWKHRnw6ZB7wZCX9j4UFjZBL2EmWJcsc3yZCtrygNb3sF5qtFCvja91DPvrY9u7OXtjnPVbxccloXMjnOejk9SwjSyEy2NKbqhZCa1wPQ13k24IvFcmQU6XeidbtLKZBgZDZD'
             request({
                 url: graphApiUrl,
                 method: "POST",
@@ -164,7 +208,7 @@ module.exports = function (app) {
             });
 
             if (loop) {
-                timerDict[player] = SetTimer(mainFile.News().loopTime, messageData, player, true);
+                returnDict[player] = SetTimer(mainFile.RETURN().loopTime, messageData, player, true);
             }
         }, time);
 

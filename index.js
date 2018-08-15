@@ -7,23 +7,48 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json());
 app.use(cors());
 
-var _title = "";
-var _content = "";
-var _url = "";
-var _loopTime = 100000;
-var _returnString = "";
+var RETURN_NEWS = {
+    title = "",
+    content = "",
+    url = "",
+    loopTime = 100000
+};
+
+var EVENT_NEWS = {
+    title = "",
+    content = "",
+    url = "",
+    loopTime = 100000
+};
+
+var CHECKIN_NEWS = {
+    title = "",
+    content = "",
+    url = "",
+    loopTime = 100000
+};
 
 var http = require("http");
 
-function News() {
-    return { title: _title, content: _content, url: _url, loopTime: _loopTime, returnString: _returnString };
+function RETURN() {
+    return RETURN_NEWS;
 }
 
-module.exports.News = News;
+function EVENT() {
+    return EVENT_NEWS;
+}
+
+function CHECKIN() {
+    return CHECKIN_NEWS;
+}
+
+module.exports.RETURN = RETURN;
+module.exports.EVENT = EVENT;
+module.exports.CHECKIN = CHECKIN;
 
 var PlayFab = require("playfab-sdk");
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));
     LoginWithCustomID();
 
@@ -33,7 +58,6 @@ app.listen(app.get('port'), function() {
 });
 
 function LoginWithCustomID() {
-    PlayFab.settings.titleId = "45E9";
     var loginRequest = {
         // Currently, you need to look up the correct format for this object in the API-docs:
         // https://api.playfab.com/Documentation/Client/method/LoginWithCustomID
@@ -50,14 +74,12 @@ function LoginCallback(error, result) {
         console.log("Logged in!");
 
         setInterval(function () {
-
             var newsRequest = {
-                Count : 5
+                Count: 5
             }
 
             PlayFab.PlayFabClient.GetTitleNews(newsRequest, GetNewsCallback);
         }, 10000);
-
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
         console.log("Here's some debug information:");
@@ -67,15 +89,30 @@ function LoginCallback(error, result) {
 
 function GetNewsCallback(error, result) {
     if (result !== null) {
-        var data = JSON.parse(result.data.News[0].Body+"");
+        var data = "";
+        for (var keyPair in result.data.News) {
+            data = JSON.parse(keyPair.Body + "");
+            if (JSON.parse(keyPair.Body + "").type === "RETURN") {
+                RETURN_NEWS.title = data.title;
+                RETURN_NEWS.content = data.content;
+                RETURN_NEWS.url = data.url;
+                RETURN_NEWS.loopTime = data.loopTime;
+            }
+            else if (JSON.parse(keyPair.Body + "").type === "EVENT") {
+                EVENT_NEWS.title = data.title;
+                EVENT_NEWS.content = data.content;
+                EVENT_NEWS.url = data.url;
+                EVENT_NEWS.loopTime = data.loopTime;
+            }
+            else if (JSON.parse(keyPair.Body + "").type === "CHECKIN") {
+                CHECKIN_NEWS.title = data.title;
+                CHECKIN_NEWS.content = data.content;
+                CHECKIN_NEWS.url = data.url;
+                CHECKIN_NEWS.loopTime = data.loopTime;
+            }
+        }
 
-        _title = data.title;
-        _content = data.content;
-        _url = data.url;
-        _loopTime = data.loopTime;
-        _returnString = data.returnString;
         console.log("Updated");
-
     } else if (error !== null) {
         console.log("Something went wrong with your first API call.");
         console.log("Here's some debug information:");
@@ -93,8 +130,6 @@ function CompileErrorReport(error) {
             fullErrors += "\n" + paramName + ": " + error.errorDetails[paramName][msgIdx];
     return fullErrors;
 }
-
-
 
 require('./matches.js')(app);
 require('./bot.js')(app);
