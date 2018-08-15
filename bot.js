@@ -153,7 +153,8 @@ module.exports = function (app) {
 
     function sendMessageCheckIn(player, context, message, cta, payload, image) {
         var button = {
-            type: "game_play"
+            type: "game_play",
+            title: "PLAY NOW"
         };
 
         if (context) {
@@ -166,12 +167,13 @@ module.exports = function (app) {
             recipient: {
                 id: player
             },
+            
             message: {
+                text: cta,
                 attachment: {
                     type: "template",
                     payload: {
                         template_type: "media",
-                        text: cta,
                         elements: [
                             {
                                 media_type: "image",
@@ -195,7 +197,8 @@ module.exports = function (app) {
 
     function sendMessageCheckIn5Days(player, context, message, cta, payload, image) {
         var button = {
-            type: "game_play"
+            type: "game_play",
+            title : "PLAY NOW"
         };
 
         if (context) {
@@ -208,12 +211,13 @@ module.exports = function (app) {
             recipient: {
                 id: player
             },
+           
             message: {
+                text: cta,
                 attachment: {
                     type: "template",
                     payload: {
                         template_type: "media",
-                        text: cta,
                         elements: [
                             {
                                 media_type: "image",
