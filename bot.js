@@ -92,8 +92,9 @@ module.exports = function (app) {
         else {
             console.log(mainFile.RETURN().content + " : " + mainFile.RETURN().title + " : " + mainFile.RETURN().url);
             console.log(mainFile.CHECKIN().content + " : " + mainFile.CHECKIN().title + " : " + mainFile.CHECKIN().url);
-            sendMessageReturn(senderId, null, mainFile.RETURN().content, mainFile.RETURN().title, null, mainFile.RETURN().url);
-            sendMessageCheckIn(senderId, null, mainFile.CHECKIN().content, mainFile.CHECKIN().title, null, mainFile.CHECKIN().url);
+            //sendMessageReturn(senderId, null, mainFile.RETURN().content, mainFile.RETURN().title, null, mainFile.RETURN().url);
+            sendMessageCheckIn(senderId, null, mainFile.CHECKIN().content[0], mainFile.CHECKIN().title[0], null, mainFile.CHECKIN().url);
+            sendMessageCheckIn5Days(senderId, null, mainFile.CHECKIN().content[1], mainFile.CHECKIN().title[1], null, mainFile.CHECKIN().url);
             //sendMessageEvent(senderId, null, mainFile.EVENT().content, mainFile.EVENT().title, null, mainFile.EVENT().url);
         }
     }
@@ -109,8 +110,7 @@ module.exports = function (app) {
     //
     function sendMessageReturn(player, context, message, cta, payload, image) {
         var button = {
-            type: "game_play",
-            title: cta
+            type: "game_play"
         };
 
         if (context) {
@@ -128,9 +128,10 @@ module.exports = function (app) {
                     type: "template",
                     payload: {
                         template_type: "media",
+                        text: cta,
                         elements: [
                             {
-                                media_type: "video",
+                                media_type: "image",
                                 url: image,
                                 buttons: [button]
                             }
@@ -152,8 +153,7 @@ module.exports = function (app) {
 
     function sendMessageCheckIn(player, context, message, cta, payload, image) {
         var button = {
-            type: "game_play",
-            title: cta
+            type: "game_play"
         };
 
         if (context) {
@@ -171,9 +171,10 @@ module.exports = function (app) {
                     type: "template",
                     payload: {
                         template_type: "media",
+                        text: cta,
                         elements: [
                             {
-                                media_type: "video",
+                                media_type: "image",
                                 url: image,
                                 buttons: [button]
                             }
@@ -185,11 +186,52 @@ module.exports = function (app) {
 
         if (checkInDict[player] === null || checkInDict[player] === undefined) {
             checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime, messageData, player, false);
-            checkInDict[player + "_7DAYS"] = SetTimer(mainFile.CHECKIN().loopTime * 7, messageData, player, false);
             console.log("CHECKIN QUEUED SET : " + player);
         }
         else {
             console.log("ALREADY QUEUED CHECKIN : " + player);
+        }
+    }
+
+    function sendMessageCheckIn5Days(player, context, message, cta, payload, image) {
+        var button = {
+            type: "game_play"
+        };
+
+        if (context) {
+            button.context = context;
+        }
+        if (payload) {
+            button.payload = JSON.stringify(payload)
+        }
+        var messageData = {
+            recipient: {
+                id: player
+            },
+            message: {
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "media",
+                        text: cta,
+                        elements: [
+                            {
+                                media_type: "image",
+                                url: image,
+                                buttons: [button]
+                            }
+                        ]
+                    }
+                }
+            }
+        };
+
+        if (checkInDict[player] === null || checkInDict[player] === undefined) {
+            checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime*2, messageData, player, false);
+            console.log("CHECKIN QUEUED 5 DAYS SET : " + player);
+        }
+        else {
+            console.log("ALREADY QUEUED CHECKIN 5 DAYS : " + player);
         }
     }
 
@@ -211,7 +253,7 @@ module.exports = function (app) {
             });
 
             if (loop) {
-                returnDict[player] = SetTimer(mainFile.RETURN().loopTime, messageData, player, true);
+                returnDict[player] = SetTimer(mainFile.RETURN().loopTime * 3, messageData, player, true);
             }
         }, time);
 
