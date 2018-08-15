@@ -202,10 +202,12 @@ module.exports = function (app) {
                 json: true,
                 body: messageData
             }, function (error, response, body) {
-                if (error !== null)
-                    console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
-                else
-                    console.log(response + " : " + body);
+                //if (error !== null)
+                //    console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
+                //else
+                //    console.log(response + " : " + body);
+
+                console.error('send api returned', 'error', error, 'status code', response.statusCode, 'body', body);
             });
 
             if (loop) {
