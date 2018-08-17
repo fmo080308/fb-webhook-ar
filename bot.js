@@ -239,7 +239,7 @@ module.exports = function (app) {
             console.log("ALREADY QUEUED CHECKIN 5 DAYS : " + player);
         }
 
-        //////////checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime * 2, messageData, player, false);
+        //checkInDict[player] = SetTimer(mainFile.CHECKIN().loopTime * 2, messageData, player, false);
     }
 
     function SetTimer(time, messageData, player, loop) {
